@@ -1,9 +1,17 @@
+# Android Studio Files #
 *.iml
+.idea
+
+# Gradle Files #
 .gradle
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
-.DS_Store
 /build
+
+# Local Properties #
+local.properties
+
+# Java Build Files #
+.DS_Store
+
+# Misc #
 /captures
 .externalNativeBuild
