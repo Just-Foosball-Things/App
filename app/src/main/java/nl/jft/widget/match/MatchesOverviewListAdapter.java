@@ -33,6 +33,8 @@ public final class MatchesOverviewListAdapter extends AnimatedExpandableListView
 
         headers.add(header);
         items.put(header, item);
+
+        notifyDataSetChanged();
     }
 
 
