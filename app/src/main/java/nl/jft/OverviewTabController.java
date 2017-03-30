@@ -18,7 +18,6 @@ public class OverviewTabController {
     }
 
     public void switchTabs(SwipeDirection direction) {
-
         switch (direction) {
             case LEFT:
                 if (host.getCurrentTab() != 0)
@@ -38,8 +37,6 @@ public class OverviewTabController {
     public void setupTabHost() {
         host.setup();
 
-        host.setOnTouchListener(new TabHostTouchListener(this));
-
         TabHost.TabSpec spec = createSpec(host, R.string.overview_tab_ranking, R.id.overview_tab_ranking, R.string.overview_tab_ranking);
         host.addTab(spec);
 
@@ -48,6 +45,9 @@ public class OverviewTabController {
 
         spec = createSpec(host, R.string.overview_tab_profile, R.id.overview_tab_profile, R.string.overview_tab_profile);
         host.addTab(spec);
+
+        host.setOnTouchListener(new TabHostTouchListener(this));
+        host.setOnTabChangedListener(new AnimatedTabHostListener(host));
     }
 
     private TabHost.TabSpec createSpec(TabHost host, int tabSpecString, int content, int indicator) {
