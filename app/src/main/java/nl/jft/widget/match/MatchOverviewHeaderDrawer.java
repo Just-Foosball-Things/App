@@ -1,10 +1,12 @@
 package nl.jft.widget.match;
 
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.view.TouchDelegate;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -80,6 +82,10 @@ public final class MatchOverviewHeaderDrawer implements Drawer {
             return;
         }
 
+        expandHitBox(indicatorExpand);
+        expandHitBox(indicatorContract);
+
+
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,6 +134,22 @@ public final class MatchOverviewHeaderDrawer implements Drawer {
             }
 
         };
+    }
+
+    private void expandHitBox(final View view) {
+        final View parent = ((View) view.getParent());
+        parent.post(new Runnable() {
+            public void run() {
+                Rect area = new Rect();
+                view.getHitRect(area);
+
+                area.top -= 75;
+                area.left -= 75;
+                area.bottom += 75;
+                area.right += 75;
+                parent.setTouchDelegate(new TouchDelegate(area, view));
+            }
+        });
     }
 
     private int getColor(boolean winner) {
