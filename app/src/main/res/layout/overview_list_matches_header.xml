@@ -6,8 +6,9 @@
 
     <ImageView
         android:id="@+id/overview_list_matches_icon_expand"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="20dp"
         android:src="@drawable/expand_arrow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -15,8 +16,9 @@
 
     <ImageView
         android:id="@+id/overview_list_matches_icon_contract"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="20dp"
         android:src="@drawable/collapse_arrow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -26,8 +28,6 @@
         android:id="@+id/overview_list_matches_item_first_participant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="8dp"
         android:text="Participant 1"
         android:textColor="@android:color/black"
         android:textSize="18sp"
@@ -41,8 +41,6 @@
         android:id="@+id/overview_list_matches_item_second_participant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="0dp"
         android:text="Participant 2"
         android:textColor="@android:color/black"
         android:textSize="18sp"
