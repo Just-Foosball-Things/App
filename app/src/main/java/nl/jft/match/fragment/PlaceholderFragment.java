@@ -2,24 +2,24 @@ package nl.jft.match.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import nl.jft.CustomFragment;
 import nl.jft.R;
 
 /**
  * @author Oscar de Leeuw.
  */
 
-public class PlaceholderFragment extends Fragment {
+public class PlaceholderFragment extends CustomFragment {
 
     public static PlaceholderFragment newInstance() {
         return new PlaceholderFragment();
     }
 
-    public static CharSequence getTitle() {
+    public CharSequence getTitle() {
         return "Placeholder";
     }
 

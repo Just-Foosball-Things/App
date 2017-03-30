@@ -2,18 +2,18 @@ package nl.jft.match.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import nl.jft.CustomFragment;
 import nl.jft.R;
 
 /**
  * @author Oscar de Leeuw.
  */
 
-public class MatchOverviewFragment extends Fragment {
+public class MatchOverviewFragment extends CustomFragment {
 
     public static MatchOverviewFragment newInstance() {
         return new MatchOverviewFragment();
@@ -24,5 +24,10 @@ public class MatchOverviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_match_overview, container, false);
         return rootView;
+    }
+
+    @Override
+    public CharSequence getTitle() {
+        return "Overview";
     }
 }
