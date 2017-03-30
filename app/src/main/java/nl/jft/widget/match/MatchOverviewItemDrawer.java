@@ -12,8 +12,8 @@ import android.widget.TextView;
 import nl.jft.R;
 import nl.jft.logic.match.Match;
 import nl.jft.logic.participant.Participant;
-import nl.jft.widget.util.MatchUtil;
-import nl.jft.widget.util.ParticipantUtil;
+import nl.jft.util.MatchUtil;
+import nl.jft.util.ParticipantUtil;
 
 public final class MatchOverviewItemDrawer implements Drawer {
 

@@ -1,4 +1,4 @@
-package nl.jft.widget.util;
+package nl.jft.util;
 
 import nl.jft.logic.participant.Participant;
 
