@@ -53,6 +53,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="TextView" />
+
+                    <nl.jft.widget.AnimatedExpandableListView
+                        android:id="@+id/overview_list_matches"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:dividerHeight="0.5dp"
+                        android:groupIndicator="@null" />
+
                 </LinearLayout>
 
                 <LinearLayout
