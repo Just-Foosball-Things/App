@@ -4,6 +4,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import nl.jft.CustomFragment;
 import nl.jft.overview.fragment.MatchesFragment;
 import nl.jft.overview.fragment.ProfileFragment;
 import nl.jft.overview.fragment.RankingFragment;
@@ -14,39 +18,30 @@ import nl.jft.overview.fragment.RankingFragment;
 
 public class OverviewPagerAdapter extends FragmentPagerAdapter {
 
+    Map<Integer, CustomFragment> fragments;
+
     public OverviewPagerAdapter(FragmentManager fm) {
         super(fm);
+
+        fragments = new HashMap<>();
+
+        fragments.put(0, new RankingFragment());
+        fragments.put(1, new MatchesFragment());
+        fragments.put(2, new ProfileFragment());
     }
 
     @Override
     public Fragment getItem(int position) {
-
-        switch (position) {
-            case 0:
-                return RankingFragment.newInstance();
-            case 1:
-                return MatchesFragment.newInstance();
-            case 2:
-                return ProfileFragment.newInstance();
-        }
-        return null;
+        return fragments.get(position);
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return fragments.size();
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        switch (position) {
-            case 0:
-                return "Ranking";
-            case 1:
-                return "Matches";
-            case 2:
-                return "Profile";
-        }
-        return null;
+        return fragments.get(position).getTitle();
     }
 }

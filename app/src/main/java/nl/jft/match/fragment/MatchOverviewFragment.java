@@ -15,10 +15,6 @@ import nl.jft.R;
 
 public class MatchOverviewFragment extends CustomFragment {
 
-    public static MatchOverviewFragment newInstance() {
-        return new MatchOverviewFragment();
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
