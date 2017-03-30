@@ -1,8 +1,12 @@
-package nl.jft;
+package nl.jft.overview;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import nl.jft.overview.fragment.MatchesFragment;
+import nl.jft.overview.fragment.ProfileFragment;
+import nl.jft.overview.fragment.RankingFragment;
 
 /**
  * @author Oscar de Leeuw.

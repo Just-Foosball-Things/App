@@ -1,4 +1,4 @@
-package nl.jft;
+package nl.jft.overview.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import nl.jft.R;
 
 /**
  * @author Oscar de Leeuw.
