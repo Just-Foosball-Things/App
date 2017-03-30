@@ -3,4 +3,7 @@
     <string name="overview_tab_ranking">Ranking</string>
     <string name="overview_tab_matches">Matches</string>
     <string name="overview_tab_profile">Profile</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
