@@ -6,6 +6,8 @@ import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +17,8 @@ import nl.jft.util.MatchUtil;
 import nl.jft.widget.AnimatedExpandableListView;
 
 public final class MatchOverviewHeaderDrawer implements Drawer {
+
+    private static final int ANIMATION_DURATION = 200;
 
     private final View view;
     private final MatchOverviewHeader header;
@@ -69,8 +73,8 @@ public final class MatchOverviewHeaderDrawer implements Drawer {
     }
 
     private void drawArrowIndicator(final int position, final boolean expanded) {
-        ImageView indicatorExpand = (ImageView) view.findViewById(R.id.overview_list_matches_icon_expand);
-        ImageView indicatorContract = (ImageView) view.findViewById(R.id.overview_list_matches_icon_contract);
+        final ImageView indicatorExpand = (ImageView) view.findViewById(R.id.overview_list_matches_icon_expand);
+        final ImageView indicatorContract = (ImageView) view.findViewById(R.id.overview_list_matches_icon_contract);
 
         if (indicatorExpand == null || indicatorContract == null) {
             return;
@@ -83,17 +87,47 @@ public final class MatchOverviewHeaderDrawer implements Drawer {
 
                 if (expanded) {
                     list.collapseGroupWithAnimation(position);
+                    startAnimation(indicatorContract, indicatorExpand);
                 } else {
                     list.expandGroupWithAnimation(position);
+                    startAnimation(indicatorExpand, indicatorContract);
                 }
             }
         };
 
+
         indicatorExpand.setOnClickListener(listener);
         indicatorContract.setOnClickListener(listener);
+    }
 
-        indicatorExpand.setVisibility(expanded ? View.INVISIBLE : View.VISIBLE);
-        indicatorContract.setVisibility(expanded ? View.VISIBLE : View.INVISIBLE);
+    private void startAnimation(View from, View to) {
+        Animation animation = new RotateAnimation(0f, 180f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        animation.setDuration(ANIMATION_DURATION);
+        animation.setRepeatCount(0);
+        animation.setAnimationListener(createAnimationListener(from, to));
+
+        from.startAnimation(animation);
+    }
+
+    private Animation.AnimationListener createAnimationListener(final View from, final View to) {
+        return new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                from.setVisibility(View.INVISIBLE);
+                to.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+
+        };
     }
 
     private int getColor(boolean winner) {
