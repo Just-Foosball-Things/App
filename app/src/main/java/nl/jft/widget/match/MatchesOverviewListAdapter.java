@@ -16,9 +16,6 @@ import nl.jft.widget.AnimatedExpandableListView;
 
 public final class MatchesOverviewListAdapter extends AnimatedExpandableListView.AnimatedExpandableListAdapter {
 
-    private final Map<MatchOverviewHeader, Drawer> headerDrawers = new HashMap<>();
-    private final Map<MatchOverviewItem, Drawer> itemDrawers = new HashMap<>();
-
     private final Context context;
     private final List<MatchOverviewHeader> headers = new ArrayList<>();
     private final Map<MatchOverviewHeader, MatchOverviewItem> items = new HashMap<>();
@@ -43,7 +40,7 @@ public final class MatchesOverviewListAdapter extends AnimatedExpandableListView
         convertView = inflateItemView(convertView);
 
         MatchOverviewItem item = getChild(groupPosition, childPosition);
-        Drawer itemDrawer = getItemDrawer(convertView, item);
+        Drawer itemDrawer = new MatchOverviewItemDrawer(convertView, item);
         itemDrawer.draw(groupPosition, childPosition, false);
 
         return convertView;
@@ -56,16 +53,6 @@ public final class MatchesOverviewListAdapter extends AnimatedExpandableListView
         }
 
         return view;
-    }
-
-    private Drawer getItemDrawer(View view, MatchOverviewItem item) {
-        Drawer drawer = itemDrawers.get(item);
-        if (drawer == null) {
-            drawer = new MatchOverviewItemDrawer(view, item);
-            itemDrawers.put(item, drawer);
-        }
-
-        return drawer;
     }
 
     @Override
@@ -109,7 +96,7 @@ public final class MatchesOverviewListAdapter extends AnimatedExpandableListView
         convertView = inflateHeaderView(convertView);
 
         MatchOverviewHeader header = getGroup(groupPosition);
-        Drawer headerDrawer = getHeaderDrawer(convertView, header);
+        Drawer headerDrawer = new MatchOverviewHeaderDrawer(convertView, header);
         headerDrawer.draw(groupPosition, -1, isExpanded);
 
         return convertView;
@@ -122,16 +109,6 @@ public final class MatchesOverviewListAdapter extends AnimatedExpandableListView
         }
 
         return view;
-    }
-
-    private Drawer getHeaderDrawer(View view, MatchOverviewHeader header) {
-        Drawer drawer = headerDrawers.get(header);
-        if (drawer == null) {
-            drawer = new MatchOverviewHeaderDrawer(view, header);
-            headerDrawers.put(header, drawer);
-        }
-
-        return drawer;
     }
 
     @Override
