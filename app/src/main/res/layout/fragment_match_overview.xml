@@ -1,16 +1,103 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="nl.jft.match.MatchActivity$PlaceholderFragment">
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <ImageView
+        android:id="@+id/image_match_overview_profile_first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_match_overview_title_first"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/image_match_overview_profile_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toRightOf="@+id/image_match_overview_profile_first"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_match_overview_title_second"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <nl.jft.widget.badge.Badge
+        android:layout_width="215dp"
+        android:layout_height="219dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        app:drawable="@mipmap/ic_launcher"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.534"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.501"
+        app:name="@string/matches_overview_name_first_placeholder"
+        app:title="@string/matches_overview_title_first_placeholder"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="62dp" />
 
     <TextView
-        android:id="@+id/section_label"
+        android:id="@+id/text_match_overview_title_first"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+        android:text="@string/matches_overview_title_first_placeholder"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/text_match_overview_title_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+        android:text="@string/matches_overview_title_second_placeholder"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toRightOf="@+id/text_match_overview_title_first"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_match_overview_name_first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/matches_overview_name_first_placeholder"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:layout_editor_absoluteY="105dp" />
+
+    <TextView
+        android:id="@+id/text_match_overview_name_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/matches_overview_name_second_placeholder"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_editor_absoluteY="137dp" />
+
+</android.support.constraint.ConstraintLayout>
