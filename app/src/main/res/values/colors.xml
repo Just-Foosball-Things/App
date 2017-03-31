@@ -7,5 +7,7 @@
     <color name="overview_list_matches_item_winner">#35AB35</color>
     <color name="overview_list_matches_item_loser">#B04444</color>
 
+    <color name="goal_timeline_baseline">#388E3C</color>
+
     <color name="black_overlay">#66000000</color>
 </resources>
