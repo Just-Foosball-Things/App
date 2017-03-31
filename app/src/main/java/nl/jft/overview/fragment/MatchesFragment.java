@@ -1,5 +1,6 @@
 package nl.jft.overview.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import nl.jft.logic.match.MatchType;
 import nl.jft.logic.participant.Participant;
 import nl.jft.logic.participant.Title;
 import nl.jft.logic.participant.impl.User;
+import nl.jft.match.MatchActivity;
 import nl.jft.widget.AnimatedExpandableListView;
 import nl.jft.widget.match.MatchesOverviewListAdapter;
 
@@ -75,6 +77,17 @@ public class MatchesFragment extends CustomFragment {
         listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                Intent intent = new Intent(v.getContext(), MatchActivity.class);
+                startActivity(intent);
+                return true;
+            }
+        });
+
+        listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                Intent intent = new Intent(v.getContext(), MatchActivity.class);
+                startActivity(intent);
                 return true;
             }
         });
