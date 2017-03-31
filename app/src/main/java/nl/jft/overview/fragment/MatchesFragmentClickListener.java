@@ -31,7 +31,7 @@ public class MatchesFragmentClickListener implements ExpandableListView.OnGroupC
     @Override
     public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
         startActivity(v.getContext(), groupPosition);
-        return false;
+        return true;
     }
 
     private void startActivity(Context context, int position) {
