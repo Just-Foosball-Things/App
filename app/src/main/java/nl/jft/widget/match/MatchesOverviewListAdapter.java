@@ -34,6 +34,11 @@ public final class MatchesOverviewListAdapter extends AnimatedExpandableListView
         notifyDataSetChanged();
     }
 
+    public void addMatches(List<Match> matches) {
+        for (Match match : matches) {
+            addMatch(match);
+        }
+    }
 
     @Override
     public View getRealChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {

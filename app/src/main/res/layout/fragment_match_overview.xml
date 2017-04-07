@@ -1,16 +1,150 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="nl.jft.match.MatchActivity$PlaceholderFragment">
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <nl.jft.widget.badge.Badge
+        android:id="@+id/match_badge_profile_first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        app:drawable="@mipmap/ic_launcher"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:name="@string/matches_overview_name_first_placeholder"
+        app:title="@string/matches_overview_title_first_placeholder" />
+
+    <nl.jft.widget.badge.Badge
+        android:id="@+id/match_badge_profile_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        app:drawable="@mipmap/ic_launcher"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:name="@string/matches_overview_name_second_placeholder"
+        app:title="@string/matches_overview_title_second_placeholder" />
+
+    <nl.jft.widget.timeline.GoalTimelineView
+        android:id="@+id/match_timeline_goals"
+        android:layout_width="324dp"
+        android:layout_height="208dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
 
     <TextView
-        android:id="@+id/section_label"
+        android:id="@+id/match_text_goals_first"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="10"
+        android:textColor="@color/overview_list_matches_item_winner"
+        android:textSize="40sp"
+        app:layout_constraintLeft_toRightOf="@+id/match_badge_profile_first"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/match_text_goals_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="-"
+        android:textSize="40sp"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toRightOf="@+id/match_text_goals_first"
+        app:layout_constraintRight_toLeftOf="@+id/match_text_goals_second"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/match_text_goals_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:text="9"
+        android:textColor="@color/overview_list_matches_item_loser"
+        android:textSize="40sp"
+        app:layout_constraintRight_toLeftOf="@+id/match_badge_profile_second"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/match_text_rating_first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="1500"
+        android:textColor="@color/overview_list_matches_item_winner"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toRightOf="@+id/match_badge_profile_first"
+        app:layout_constraintTop_toBottomOf="@+id/match_text_goals_first" />
+
+    <TextView
+        android:id="@+id/match_text_rating_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="-"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toRightOf="@+id/match_text_rating_first"
+        app:layout_constraintRight_toLeftOf="@+id/match_text_rating_second"
+        app:layout_constraintTop_toBottomOf="@+id/match_text_goals_label" />
+
+    <TextView
+        android:id="@+id/match_text_rating_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="1500"
+        android:textColor="@color/overview_list_matches_item_loser"
+        android:textSize="20sp"
+        app:layout_constraintRight_toLeftOf="@+id/match_badge_profile_second"
+        app:layout_constraintTop_toBottomOf="@+id/match_text_goals_second" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="355dp" />
+
+    <TextView
+        android:id="@+id/match_text_rating_difference_first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="0dp"
+        android:text="(▲20)"
+        android:textColor="@color/overview_list_matches_item_winner"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toRightOf="@+id/match_badge_profile_first"
+        app:layout_constraintTop_toBottomOf="@+id/match_text_rating_first" />
+
+    <TextView
+        android:id="@+id/match_text_rating_difference_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:text="(▼20)"
+        android:textColor="@color/overview_list_matches_item_loser"
+        android:textSize="15sp"
+        app:layout_constraintRight_toLeftOf="@+id/match_badge_profile_second"
+        app:layout_constraintTop_toBottomOf="@+id/match_text_rating_second" />
+
+</android.support.constraint.ConstraintLayout>
