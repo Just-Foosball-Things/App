@@ -1,5 +1,7 @@
 package nl.jft.logic.participant;
 
+import java.io.Serializable;
+
 import nl.jft.common.Identifiable;
 import nl.jft.common.util.Arguments;
 import nl.jft.logic.LogicConstants;
@@ -9,7 +11,7 @@ import nl.jft.logic.LogicConstants;
  *
  * @author Lesley
  */
-public class Title implements Identifiable {
+public class Title implements Identifiable, Serializable {
 
     private final int id;
     private final String name;
