@@ -1,5 +1,6 @@
 package nl.jft.logic.match;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import nl.jft.common.Identifiable;
@@ -10,7 +11,7 @@ import nl.jft.logic.LogicConstants;
  *
  * @author Lesley
  */
-public class MatchResult implements Identifiable {
+public class MatchResult implements Identifiable, Serializable {
 
     private final int id;
     private final Match match;

@@ -1,5 +1,7 @@
 package nl.jft.logic.participant;
 
+import java.io.Serializable;
+
 import nl.jft.common.Identifiable;
 import nl.jft.common.rating.Rating;
 
@@ -10,7 +12,7 @@ import nl.jft.common.rating.Rating;
  * @author Lesley
  * @author Oscar de Leeuw
  */
-public interface Participant extends Identifiable {
+public interface Participant extends Identifiable, Serializable {
 
     /**
      * Gets the name of the {@code Participant}.

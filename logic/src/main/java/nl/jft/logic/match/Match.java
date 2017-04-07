@@ -1,5 +1,6 @@
 package nl.jft.logic.match;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -16,7 +17,7 @@ import nl.jft.logic.participant.Participant;
  *
  * @author Lesley
  */
-public class Match {
+public class Match implements Serializable {
 
     private final List<MatchListener> listeners = new ArrayList<>();
 
