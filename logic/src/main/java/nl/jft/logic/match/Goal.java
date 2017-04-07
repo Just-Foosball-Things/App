@@ -1,5 +1,6 @@
 package nl.jft.logic.match;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -13,7 +14,7 @@ import nl.jft.logic.participant.Participant;
  *
  * @author Lesley
  */
-public class Goal implements Identifiable {
+public class Goal implements Identifiable, Serializable {
 
     private final int id;
     private final Participant participant;

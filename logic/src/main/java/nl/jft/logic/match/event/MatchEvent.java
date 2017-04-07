@@ -1,5 +1,6 @@
 package nl.jft.logic.match.event;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import nl.jft.logic.match.Match;
@@ -9,7 +10,7 @@ import nl.jft.logic.match.Match;
  *
  * @author Lesley
  */
-public abstract class MatchEvent {
+public abstract class MatchEvent implements Serializable {
 
     private final Match match;
 

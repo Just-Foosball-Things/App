@@ -1,5 +1,7 @@
 package nl.jft.logic.match;
 
+import java.io.Serializable;
+
 import nl.jft.common.Identifiable;
 import nl.jft.common.util.Arguments;
 import nl.jft.logic.LogicConstants;
@@ -9,7 +11,7 @@ import nl.jft.logic.LogicConstants;
  *
  * @author Lesley
  */
-public class Rule implements Identifiable {
+public class Rule implements Identifiable, Serializable {
 
     private final int id;
     private final String description;
