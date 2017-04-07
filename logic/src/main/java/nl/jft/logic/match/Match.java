@@ -19,14 +19,11 @@ import nl.jft.logic.participant.Participant;
  */
 public class Match implements Serializable {
 
-    private final List<MatchListener> listeners = new ArrayList<>();
-
     private final List<Goal> goals = new ArrayList<>();
     private final List<Rule> rules = new ArrayList<>();
-
     private final Participant firstParticipant;
     private final Participant secondParticipant;
-
+    private transient List<MatchListener> listeners = new ArrayList<>();
     private MatchStatus status;
     private MatchType type;
 
@@ -69,8 +66,9 @@ public class Match implements Serializable {
     private void fireMatchStatusChanged(MatchStatus oldStatus, MatchStatus newStatus) {
         MatchStatusChangedEvent event = new MatchStatusChangedEvent(this, oldStatus, newStatus);
 
-        synchronized (listeners) {
-            for (MatchListener listener : listeners) {
+        List<MatchListener> matchListeners = getMatchListeners();
+        synchronized (matchListeners) {
+            for (MatchListener listener : matchListeners) {
                 listener.onMatchStatusChanged(event);
             }
         }
@@ -100,28 +98,40 @@ public class Match implements Serializable {
     public void addListener(MatchListener listener) {
         Objects.requireNonNull(listener);
 
-        synchronized (listeners) {
-            listeners.add(listener);
+        List<MatchListener> matchListeners = getMatchListeners();
+        synchronized (matchListeners) {
+            matchListeners.add(listener);
         }
     }
 
     public void removeListener(MatchListener listener) {
         Objects.requireNonNull(listener);
 
-        synchronized (listeners) {
-            listeners.remove(listener);
+        List<MatchListener> matchListeners = getMatchListeners();
+        synchronized (matchListeners) {
+            matchListeners.remove(listener);
         }
     }
 
     public List<MatchListener> getListeners() {
         List<MatchListener> list = new ArrayList<>();
 
-        synchronized (listeners) {
-            list.addAll(listeners);
+        List<MatchListener> matchListeners = getMatchListeners();
+        synchronized (matchListeners) {
+            list.addAll(matchListeners);
         }
 
         return list;
     }
+
+    private List<MatchListener> getMatchListeners() {
+        if (listeners == null) {
+            listeners = new ArrayList<>();
+        }
+
+        return listeners;
+    }
+
 
     /**
      * Adds a {@link Goal} to this {@code Match}.
@@ -138,8 +148,9 @@ public class Match implements Serializable {
 
         GoalScoredEvent event = new GoalScoredEvent(this, goal);
 
-        synchronized (listeners) {
-            for (MatchListener listener : listeners) {
+        List<MatchListener> matchListeners = getMatchListeners();
+        synchronized (matchListeners) {
+            for (MatchListener listener : matchListeners) {
                 listener.onGoalScored(event);
             }
         }
@@ -160,8 +171,9 @@ public class Match implements Serializable {
 
         GoalRemovedEvent event = new GoalRemovedEvent(this, goal);
 
-        synchronized (listeners) {
-            for (MatchListener listener : listeners) {
+        List<MatchListener> matchListeners = getMatchListeners();
+        synchronized (matchListeners) {
+            for (MatchListener listener : matchListeners) {
                 listener.onGoalRemoved(event);
             }
         }
