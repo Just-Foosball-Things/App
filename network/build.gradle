@@ -1,0 +1,12 @@
+apply plugin: 'java'
+
+dependencies {
+    compile project(':common')
+    compile project(':logic')
+
+    compile group: 'io.netty', name: 'netty-all', version: '4.0.44.Final'
+    compile group: 'de.ruedigermoeller', name: 'fst', version: '2.47'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:2.6.9'
+}

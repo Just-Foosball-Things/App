@@ -1,1 +1,4 @@
 include ':app'
+include ':common'
+include ':logic'
+include ':network'
