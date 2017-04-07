@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="nl.jft.MatchPlayActivity">
+
+    <Button
+        android:id="@+id/match_play_button_player_two"
+        style="@style/match_play_button.player_one"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="Player 1" />
+
+    <Button
+        android:id="@+id/match_play_button_player_one"
+        style="@style/match_play_button.player_two"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="Player 2" />
+</LinearLayout>
