@@ -1,5 +1,6 @@
 package nl.jft.logic.statistic;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  * @param <T> The underlying {@code Object} that this {@code Statistic} keeps track of.
  * @author Lesley
  */
-public interface Statistic<T> {
+public interface Statistic<T> extends Serializable {
 
     /**
      * Gets the underlying collection of tracked {@code objects}.
