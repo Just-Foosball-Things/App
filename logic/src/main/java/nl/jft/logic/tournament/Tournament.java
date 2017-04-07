@@ -1,9 +1,9 @@
 package nl.jft.logic.tournament;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import nl.jft.logic.participant.Participant;
 import nl.jft.logic.participant.ParticipantType;
@@ -15,7 +15,7 @@ import nl.jft.logic.util.ParticipantUtil;
  *
  * @author Lesley
  */
-public class Tournament {
+public class Tournament implements Serializable {
 
     private final List<Participant> participants = new ArrayList<>();
 
@@ -23,7 +23,7 @@ public class Tournament {
     private final ParticipantType participantType;
 
     private TournamentStatus status;
-    private Optional<Participant> winner;
+    private Participant winner;
 
     /**
      * Initializes a new {@code Tournament} using the given arguments.
@@ -40,7 +40,7 @@ public class Tournament {
         this.participantType = Objects.requireNonNull(participantType);
 
         status = TournamentStatus.SETUP;
-        winner = Optional.empty();
+        winner = null;
     }
 
     /**
@@ -144,10 +144,10 @@ public class Tournament {
     /**
      * Gets the winner of this {@code Tournament}.
      *
-     * @return An {@link Optional} containing the winner of this {@code Tournament}. May be empty if no winner has
+     * @return A {@link Participant} containing the winner of this {@code Tournament}. May be empty if no winner has
      * been determined yet.
      */
-    public Optional<Participant> getWinner() {
+    public Participant getWinner() {
         return winner;
     }
 
