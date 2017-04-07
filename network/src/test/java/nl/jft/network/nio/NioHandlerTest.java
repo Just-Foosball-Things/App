@@ -64,7 +64,7 @@ public class NioHandlerTest {
         NioHandler handler = makeNioHandler();
 
         Attribute<Connection> mockAttribute = mock(Attribute.class);
-        when(mockAttribute.getAndSet(ArgumentMatchers.isNull())).thenReturn(null);
+        when(mockAttribute.getAndSet((Connection) ArgumentMatchers.isNull())).thenReturn(null);
 
         Channel stubChannel = mock(Channel.class);
         when(stubChannel.attr(NioConstants.ATTRIBUTE_CONNECTION)).thenReturn(mockAttribute);
@@ -74,7 +74,7 @@ public class NioHandlerTest {
 
         handler.channelInactive(fakeCtx);
 
-        verify(mockAttribute).getAndSet(ArgumentMatchers.isNull());
+        verify(mockAttribute).getAndSet((Connection) ArgumentMatchers.isNull());
     }
 
     @Test
@@ -84,7 +84,7 @@ public class NioHandlerTest {
         Connection stubConnection = mock(Connection.class);
 
         Attribute<Connection> mockAttribute = mock(Attribute.class);
-        when(mockAttribute.getAndSet(ArgumentMatchers.isNull())).thenReturn(stubConnection);
+        when(mockAttribute.getAndSet((Connection) ArgumentMatchers.isNull())).thenReturn(stubConnection);
 
         Channel stubChannel = mock(Channel.class);
         when(stubChannel.attr(NioConstants.ATTRIBUTE_CONNECTION)).thenReturn(mockAttribute);
@@ -94,7 +94,7 @@ public class NioHandlerTest {
 
         handler.channelInactive(fakeCtx);
 
-        verify(mockAttribute).getAndSet(ArgumentMatchers.isNull());
+        verify(mockAttribute).getAndSet((Connection) ArgumentMatchers.isNull());
     }
 
     @Test
@@ -104,7 +104,7 @@ public class NioHandlerTest {
         Connection mockConnection = mock(Connection.class);
 
         Attribute<Connection> stubAttribute = mock(Attribute.class);
-        when(stubAttribute.getAndSet(ArgumentMatchers.isNull())).thenReturn(mockConnection);
+        when(stubAttribute.getAndSet((Connection) ArgumentMatchers.isNull())).thenReturn(mockConnection);
 
         Channel stubChannel = mock(Channel.class);
         when(stubChannel.attr(NioConstants.ATTRIBUTE_CONNECTION)).thenReturn(stubAttribute);
@@ -128,7 +128,7 @@ public class NioHandlerTest {
         Connection stubConnection = mock(Connection.class);
 
         Attribute<Connection> mockAttribute = mock(Attribute.class);
-        when(mockAttribute.getAndSet(ArgumentMatchers.isNull())).thenReturn(stubConnection);
+        when(mockAttribute.getAndSet((Connection) ArgumentMatchers.isNull())).thenReturn(stubConnection);
 
         Channel stubChannel = mock(Channel.class);
         when(stubChannel.attr(NioConstants.ATTRIBUTE_CONNECTION)).thenReturn(mockAttribute);

@@ -24,6 +24,8 @@ android {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/INDEX.LIST'
     }
+
+    android { lintOptions { abortOnError false } }
 }
 
 dependencies {
