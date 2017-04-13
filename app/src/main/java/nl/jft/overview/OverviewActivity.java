@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import nl.jft.R;
+import nl.jft.util.LabelUtil;
 
 public class OverviewActivity extends AppCompatActivity {
 
@@ -35,6 +36,8 @@ public class OverviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_overview);
+
+        LabelUtil.initialize(getApplicationContext());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

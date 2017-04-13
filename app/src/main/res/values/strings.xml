@@ -12,4 +12,5 @@
     <string name="matches_overview_title_second_placeholder">Weltmeister</string>
     <string name="matches_overview_name_first_placeholder">Lesley</string>
     <string name="matches_overview_name_second_placeholder">Oscar</string>
+    <string name="match_overview_btn_play">Play</string>
 </resources>
