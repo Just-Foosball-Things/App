@@ -97,6 +97,23 @@ public class GoalTimelineView extends View {
     }
 
     @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        //setMeasuredDimension((int) (TITLE_STRING_BASE_MAX_RECT + TITLE_STRING_Y_OFFSET), (int) (PROFILE_IMAGE_BASE_HEIGHT + PROFILE_IMAGE_BASE_Y + namePaint.getTextSize()));
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        int width = View.MeasureSpec.getSize(widthMeasureSpec);
+
+        List<Goal> goals = match == null ? new ArrayList<Goal>() : match.getGoals();
+        int total = goals.size() == 0 ? 19 : goals.size();
+
+        int totalMarginWidth = MARGIN_FOOTBALL * total;
+        int footballHeight = (width - totalMarginWidth) / total;
+
+        int height = ((FOOTBALL_LINE_HEIGHT + footballHeight) * 2) + BASELINE_THICKNESS;
+        setMeasuredDimension(width, height);
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
         if (match == null) {
             super.onDraw(canvas);
