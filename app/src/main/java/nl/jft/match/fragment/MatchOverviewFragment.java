@@ -18,9 +18,10 @@ import nl.jft.CustomFragment;
 import nl.jft.R;
 import nl.jft.logic.match.Goal;
 import nl.jft.logic.match.Match;
+import nl.jft.logic.participant.Participant;
 import nl.jft.logic.participant.impl.User;
 import nl.jft.match.MatchPlayActivity;
-import nl.jft.util.MatchUtil;
+import nl.jft.util.LabelUtil;
 import nl.jft.widget.badge.Badge;
 import nl.jft.widget.timeline.GoalClickedListener;
 import nl.jft.widget.timeline.GoalTimelineView;
@@ -33,6 +34,7 @@ public class MatchOverviewFragment extends CustomFragment {
 
     public static final String EXTRA_MATCH_ARGUMENT = "match";
 
+    private View rootView;
     private Match match;
 
     private GoalTimelineView timelineGoal;
@@ -40,25 +42,29 @@ public class MatchOverviewFragment extends CustomFragment {
 
     private Badge badgeFirstParticipant;
     private TextView txtGoalsFirstParticipant;
+    private TextView txtRatingFirstParticipant;
+    private TextView txtRatingDifferenceFirstParticipant;
 
     private Badge badgeSecondParticipant;
     private TextView txtGoalsSecondParticipant;
+    private TextView txtRatingSecondParticipant;
+    private TextView txtRatingDifferenceSecondParticipant;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_match_overview, container, false);
+        rootView = inflater.inflate(R.layout.fragment_match_overview, container, false);
 
         assignMatch();
-        assignViews(root);
+        assignViews();
 
         initializeLabels();
         initializeBadges();
 
-        initializeTimelineGoal(root);
+        initializeTimelineGoal();
         initializeButtonPlay();
 
-        return root;
+        return rootView;
     }
 
     private void assignMatch() {
@@ -66,23 +72,31 @@ public class MatchOverviewFragment extends CustomFragment {
         match = (Match) intent.getSerializableExtra(EXTRA_MATCH_ARGUMENT);
     }
 
-    private void assignViews(View root) {
-        timelineGoal = (GoalTimelineView) root.findViewById(R.id.match_timeline_goals);
-        btnPlay = (Button) root.findViewById(R.id.match_overview_btn_play);
+    private void assignViews() {
+        timelineGoal = (GoalTimelineView) rootView.findViewById(R.id.match_timeline_goals);
+        btnPlay = (Button) rootView.findViewById(R.id.match_overview_btn_play);
 
-        badgeFirstParticipant = (Badge) root.findViewById(R.id.match_badge_profile_first);
-        txtGoalsFirstParticipant = (TextView) root.findViewById(R.id.match_text_goals_first);
+        badgeFirstParticipant = (Badge) rootView.findViewById(R.id.match_badge_profile_first);
+        txtGoalsFirstParticipant = (TextView) rootView.findViewById(R.id.match_text_goals_first);
+        txtRatingFirstParticipant = (TextView) rootView.findViewById(R.id.match_text_rating_first);
+        txtRatingDifferenceFirstParticipant = (TextView) rootView.findViewById(R.id.match_text_rating_difference_first);
 
-        badgeSecondParticipant = (Badge) root.findViewById(R.id.match_badge_profile_second);
-        txtGoalsSecondParticipant = (TextView) root.findViewById(R.id.match_text_goals_second);
+        badgeSecondParticipant = (Badge) rootView.findViewById(R.id.match_badge_profile_second);
+        txtGoalsSecondParticipant = (TextView) rootView.findViewById(R.id.match_text_goals_second);
+        txtRatingSecondParticipant = (TextView) rootView.findViewById(R.id.match_text_rating_second);
+        txtRatingDifferenceSecondParticipant = (TextView) rootView.findViewById(R.id.match_text_rating_difference_second);
     }
 
     private void initializeLabels() {
-        int firstGoals = MatchUtil.getAmountOfGoals(match, match.getFirstParticipant());
-        txtGoalsFirstParticipant.setText(Integer.toString(firstGoals));
+        Participant firstParticipant = match.getFirstParticipant();
+        txtGoalsFirstParticipant.setText(LabelUtil.getGoalsSpannable(match, firstParticipant));
+        txtRatingFirstParticipant.setText(LabelUtil.getRatingSpannable(match, firstParticipant));
+        txtRatingDifferenceFirstParticipant.setText(LabelUtil.getRatingDifferenceSpannable(match, firstParticipant));
 
-        int secondGoals = MatchUtil.getAmountOfGoals(match, match.getSecondParticipant());
-        txtGoalsSecondParticipant.setText(Integer.toString(secondGoals));
+        Participant secondParticipant = match.getSecondParticipant();
+        txtGoalsSecondParticipant.setText(LabelUtil.getGoalsSpannable(match, secondParticipant));
+        txtRatingSecondParticipant.setText(LabelUtil.getRatingSpannable(match, secondParticipant));
+        txtRatingDifferenceSecondParticipant.setText(LabelUtil.getRatingDifferenceSpannable(match, secondParticipant));
     }
 
     private void initializeBadges() {
@@ -95,7 +109,7 @@ public class MatchOverviewFragment extends CustomFragment {
         badge.setTitle(participant.getActiveTitle().getName());
     }
 
-    private void initializeTimelineGoal(final View root) {
+    private void initializeTimelineGoal() {
         timelineGoal.setMatch(match);
         timelineGoal.setOnGoalClickedListener(new GoalClickedListener() {
             @Override
@@ -104,7 +118,7 @@ public class MatchOverviewFragment extends CustomFragment {
                 String time = new SimpleDateFormat("HH:mm:ss:SSS", Locale.UK).format(goal.getTime());
                 String text = String.format("Participant: %s\nTime: %s", participant, time);
 
-                Snackbar snackbar = Snackbar.make(root, text, Snackbar.LENGTH_SHORT);
+                Snackbar snackbar = Snackbar.make(rootView, text, Snackbar.LENGTH_SHORT);
                 snackbar.show();
             }
         });
