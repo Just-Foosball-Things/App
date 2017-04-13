@@ -9,6 +9,7 @@ import java.util.List;
 
 import nl.jft.logic.match.Match;
 import nl.jft.match.MatchActivity;
+import nl.jft.match.fragment.MatchOverviewFragment;
 
 /**
  * @author Oscar de Leeuw.
@@ -36,8 +37,7 @@ public class MatchesFragmentClickListener implements ExpandableListView.OnGroupC
 
     private void startActivity(Context context, int position) {
         Intent intent = new Intent(context, MatchActivity.class);
-
-        Match match = matches.get(position);
+        intent.putExtra(MatchOverviewFragment.EXTRA_MATCH_ARGUMENT, matches.get(position));
 
         context.startActivity(intent);
     }
