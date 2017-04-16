@@ -54,7 +54,5 @@ public final class MatchPlayActivity extends AppCompatActivity implements View.O
     private void participantScored(Participant participant) {
         Goal goal = new Goal(participant, new Date());
         match.addGoal(goal);
-
-        System.out.println("Goal added for " + participant.getName());
     }
 }
