@@ -20,6 +20,12 @@ public class Goal implements Identifiable, Serializable {
     private final Participant participant;
     private final Date time;
 
+    public Goal() {
+        id = -1;
+        participant = null;
+        time = null;
+    }
+
     /**
      * Initializes a new {@code Goal} by invoking an other constructor ({@link #Goal(int, Participant, Date)}.
      *

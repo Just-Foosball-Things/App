@@ -2,18 +2,24 @@ package nl.jft.match.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
+
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import nl.jft.Constants;
 import nl.jft.CustomFragment;
 import nl.jft.R;
 import nl.jft.logic.match.Goal;
@@ -55,21 +61,28 @@ public class MatchOverviewFragment extends CustomFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_match_overview, container, false);
 
-        assignMatch();
         assignViews();
-
-        initializeLabels();
-        initializeBadges();
-
-        initializeTimelineGoal();
-        initializeButtonPlay();
+        assignMatch();
 
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (match == null) {
+            return;
+        }
+
+        new GetMatchTask().execute(match.getId());
+    }
+
     private void assignMatch() {
         Intent intent = getActivity().getIntent();
-        match = (Match) intent.getSerializableExtra(EXTRA_MATCH_ARGUMENT);
+        Match match = (Match) intent.getSerializableExtra(EXTRA_MATCH_ARGUMENT);
+
+        new GetMatchTask().execute(match.getId());
     }
 
     private void assignViews() {
@@ -87,7 +100,16 @@ public class MatchOverviewFragment extends CustomFragment {
         txtRatingDifferenceSecondParticipant = (TextView) rootView.findViewById(R.id.match_text_rating_difference_second);
     }
 
-    private void initializeLabels() {
+    private void updateMatchInformation(Match match) {
+        this.match = match;
+
+        initializeLabels(match);
+        initializeBadges(match);
+        initializeTimelineGoal(match);
+        initializeButtonPlay(match);
+    }
+
+    private void initializeLabels(Match match) {
         Participant firstParticipant = match.getFirstParticipant();
         txtGoalsFirstParticipant.setText(LabelUtil.getGoalsSpannable(match, firstParticipant));
         txtRatingFirstParticipant.setText(LabelUtil.getRatingSpannable(match, firstParticipant));
@@ -99,7 +121,7 @@ public class MatchOverviewFragment extends CustomFragment {
         txtRatingDifferenceSecondParticipant.setText(LabelUtil.getRatingDifferenceSpannable(match, secondParticipant));
     }
 
-    private void initializeBadges() {
+    private void initializeBadges(Match match) {
         initializeBadge(badgeFirstParticipant, (User) match.getFirstParticipant());
         initializeBadge(badgeSecondParticipant, (User) match.getSecondParticipant());
     }
@@ -109,7 +131,7 @@ public class MatchOverviewFragment extends CustomFragment {
         badge.setTitle(participant.getActiveTitle().getName());
     }
 
-    private void initializeTimelineGoal() {
+    private void initializeTimelineGoal(Match match) {
         timelineGoal.setMatch(match);
         timelineGoal.setOnGoalClickedListener(new GoalClickedListener() {
             @Override
@@ -124,7 +146,7 @@ public class MatchOverviewFragment extends CustomFragment {
         });
     }
 
-    private void initializeButtonPlay() {
+    private void initializeButtonPlay(final Match match) {
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,5 +162,31 @@ public class MatchOverviewFragment extends CustomFragment {
     @Override
     public CharSequence getTitle() {
         return "Overview";
+    }
+
+
+    private class GetMatchTask extends AsyncTask<Integer, Void, Match> {
+
+        @Override
+        protected Match doInBackground(Integer... params) {
+            try {
+                String url = String.format("%s/match?match_id=%d", Constants.REST_HOST, params[0]);
+                RestTemplate template = new RestTemplate();
+                template.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+
+                Match match = template.getForObject(url, Match.class);
+                return match;
+            } catch (Exception e) {
+                Log.e("MainActivity", e.getMessage(), e);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Match match) {
+            updateMatchInformation(match);
+        }
+
     }
 }

@@ -1,5 +1,7 @@
 package nl.jft.logic.participant.impl;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Objects;
 
 import nl.jft.common.rating.Rating;
@@ -18,10 +20,22 @@ import nl.jft.logic.participant.Title;
 public class User implements Participant {
 
     private final int id;
+
+    @JsonProperty("name")
     private final String username;
 
     private final Rating rating;
+
+    @JsonProperty("activeTitle")
     private final Title title;
+
+    public User() {
+        id = -1;
+        username = null;
+
+        rating = null;
+        title = null;
+    }
 
     /**
      * Initializes a new {@code User} by invoking an other constructor ({@link #User(int, String, Elo, Title)}.

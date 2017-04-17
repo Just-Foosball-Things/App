@@ -16,6 +16,11 @@ public class Title implements Identifiable, Serializable {
     private final int id;
     private final String name;
 
+    public Title() {
+        id = -1;
+        name = null;
+    }
+
     /**
      * Initializes a new {@code Title} by invoking an other constructor ({@link #Title(int, String)}. The {@code id} used is {@link LogicConstants#INTERNAL_ID}.
      *

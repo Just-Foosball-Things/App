@@ -181,6 +181,8 @@ public class GoalTimelineView extends View {
 
     public void setMatch(Match match) {
         this.match = match;
+
+        invalidate();
     }
 
     private boolean isFirstParticipant(Participant participant) {
