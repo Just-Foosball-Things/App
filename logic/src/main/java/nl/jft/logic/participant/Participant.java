@@ -39,4 +39,8 @@ public interface Participant extends Identifiable, Serializable {
      */
     Rating getRating();
 
+    LocationJft getLocation();
+
+    void setLocation(LocationJft location);
+
 }

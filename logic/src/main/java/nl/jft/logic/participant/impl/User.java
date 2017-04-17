@@ -7,6 +7,7 @@ import java.util.Objects;
 import nl.jft.common.rating.Rating;
 import nl.jft.common.util.Arguments;
 import nl.jft.logic.LogicConstants;
+import nl.jft.logic.participant.LocationJft;
 import nl.jft.logic.participant.Participant;
 import nl.jft.logic.participant.Title;
 
@@ -29,12 +30,15 @@ public class User implements Participant {
     @JsonProperty("activeTitle")
     private final Title title;
 
+    private LocationJft location;
+
     public User() {
         id = -1;
         username = null;
 
         rating = null;
         title = null;
+        location = null;
     }
 
     /**
@@ -97,6 +101,16 @@ public class User implements Participant {
     @Override
     public int getId() {
         return id;
+    }
+
+    @Override
+    public LocationJft getLocation() {
+        return location;
+    }
+
+    @Override
+    public void setLocation(LocationJft location) {
+        this.location = location;
     }
 
     /**

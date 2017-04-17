@@ -5,6 +5,7 @@ import java.util.Objects;
 import nl.jft.common.rating.Rating;
 import nl.jft.common.util.Arguments;
 import nl.jft.logic.LogicConstants;
+import nl.jft.logic.participant.LocationJft;
 import nl.jft.logic.participant.Participant;
 
 /**
@@ -97,6 +98,16 @@ public class Team implements Participant {
     @Override
     public Rating getRating() {
         return rating;
+    }
+
+    @Override
+    public LocationJft getLocation() {
+        return null;
+    }
+
+    @Override
+    public void setLocation(LocationJft location) {
+
     }
 
 }

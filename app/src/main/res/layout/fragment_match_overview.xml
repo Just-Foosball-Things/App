@@ -161,4 +161,14 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/match_timeline_goals" />
 
+    <Button
+        android:id="@+id/match_overview_btn_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Location Test"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/match_overview_btn_play" />
+
 </android.support.constraint.ConstraintLayout>

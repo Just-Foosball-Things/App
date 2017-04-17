@@ -15,6 +15,7 @@ import nl.jft.common.rating.glicko.GlickoRating;
 import nl.jft.logic.match.Goal;
 import nl.jft.logic.match.Match;
 import nl.jft.logic.match.MatchType;
+import nl.jft.logic.participant.LocationJft;
 import nl.jft.logic.participant.Participant;
 import nl.jft.logic.participant.Title;
 import nl.jft.logic.participant.impl.User;
@@ -34,6 +35,9 @@ public final class MatchController {
 
         Participant secondParticipant = new User(count.incrementAndGet(), "Oscar", new GlickoRating(1500, 350, 0.06), new Title("Schützelkoning"));
         participants.put(secondParticipant.getId(), secondParticipant);
+
+        firstParticipant.setLocation(new LocationJft(0, 0));
+        secondParticipant.setLocation(new LocationJft(0, 0));
 
         for (int i = 0; i < 50; i++) {
             Match match = createRandomMatch(firstParticipant, secondParticipant);
@@ -61,6 +65,18 @@ public final class MatchController {
         match.addGoal(goal);
 
         return match;
+    }
+
+    @RequestMapping("/player")
+    public Participant player(@RequestParam("player_id") int playerId) {
+        return participants.get(playerId);
+    }
+
+    @RequestMapping("/setlocation")
+    public Participant setlocation(@RequestParam("player_id") int playerId, @RequestParam("longitude") double longitude, @RequestParam("latitude") double latitude) {
+        Participant participant = participants.get(playerId);
+        participant.setLocation(new LocationJft(longitude, latitude));
+        return participant;
     }
 
     private Match createRandomMatch(Participant firstParticipant, Participant secondParticipant) {
