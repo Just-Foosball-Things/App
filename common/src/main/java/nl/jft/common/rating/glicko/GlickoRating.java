@@ -1,5 +1,7 @@
 package nl.jft.common.rating.glicko;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import nl.jft.common.rating.Rating;
 import nl.jft.common.util.Arguments;
 import nl.jft.common.util.Numbers;
@@ -15,9 +17,16 @@ import nl.jft.common.util.Numbers;
  */
 public class GlickoRating implements Rating {
 
+    @JsonProperty("value")
     private final double rating;
     private final double deviation;
     private final double volatility;
+
+    public GlickoRating() {
+        rating = -1;
+        deviation = -1;
+        volatility = -1;
+    }
 
     /**
      * Creates a new {@code GlickoRating}.

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import nl.jft.common.Identifiable;
 import nl.jft.logic.match.event.MatchListener;
 import nl.jft.logic.match.event.impl.GoalRemovedEvent;
 import nl.jft.logic.match.event.impl.GoalScoredEvent;
@@ -17,15 +18,22 @@ import nl.jft.logic.participant.Participant;
  *
  * @author Lesley
  */
-public class Match implements Serializable {
+public class Match implements Identifiable, Serializable {
 
     private final List<Goal> goals = new ArrayList<>();
     private final List<Rule> rules = new ArrayList<>();
     private final Participant firstParticipant;
     private final Participant secondParticipant;
+    private final int id;
     private transient List<MatchListener> listeners = new ArrayList<>();
     private MatchStatus status;
     private MatchType type;
+
+    public Match() {
+        id = -1;
+        firstParticipant = null;
+        secondParticipant = null;
+    }
 
     /**
      * Initializes a new {@code Match} with the given {@link Participant participants}.
@@ -34,7 +42,8 @@ public class Match implements Serializable {
      * @param secondParticipant The second {@code Participant} of this {@code Match}, should not be {@code null}.
      * @param type              The type of {@code Match} that is being played, should not be {@code null}.
      */
-    public Match(Participant firstParticipant, Participant secondParticipant, MatchType type) {
+    public Match(int id, Participant firstParticipant, Participant secondParticipant, MatchType type) {
+        this.id = id;
         this.firstParticipant = Objects.requireNonNull(firstParticipant);
         this.secondParticipant = Objects.requireNonNull(secondParticipant);
         this.type = Objects.requireNonNull(type);
@@ -294,4 +303,8 @@ public class Match implements Serializable {
         return secondParticipant;
     }
 
+    @Override
+    public int getId() {
+        return id;
+    }
 }

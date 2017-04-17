@@ -35,6 +35,10 @@ public final class MatchesOverviewListAdapter extends AnimatedExpandableListView
     }
 
     public void addMatches(List<Match> matches) {
+        items.clear();
+        headers.clear();
+        notifyDataSetChanged();
+
         for (Match match : matches) {
             addMatch(match);
         }

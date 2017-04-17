@@ -1,25 +1,23 @@
 package nl.jft.overview.fragment;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
+import java.util.List;
+
+import nl.jft.Constants;
 import nl.jft.CustomFragment;
 import nl.jft.R;
-import nl.jft.common.rating.glicko.GlickoRating;
-import nl.jft.logic.match.Goal;
 import nl.jft.logic.match.Match;
-import nl.jft.logic.match.MatchType;
-import nl.jft.logic.participant.Participant;
-import nl.jft.logic.participant.Title;
-import nl.jft.logic.participant.impl.User;
 import nl.jft.widget.AnimatedExpandableListView;
 import nl.jft.widget.match.MatchesOverviewListAdapter;
 
@@ -29,26 +27,33 @@ import nl.jft.widget.match.MatchesOverviewListAdapter;
 
 public class MatchesFragment extends CustomFragment {
 
-    private static Random random = new Random();
-    private List<Match> matches;
+    private AnimatedExpandableListView list;
+    private MatchesOverviewListAdapter adapter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_matches, container, false);
-        AnimatedExpandableListView listView = (AnimatedExpandableListView) rootView.findViewById(R.id.overview_matches_listview);
 
-        matches = getMatches();
-        final MatchesOverviewListAdapter adapter = new MatchesOverviewListAdapter(inflater.getContext());
-        adapter.addMatches(matches);
+        adapter = new MatchesOverviewListAdapter(inflater.getContext());
+        list = (AnimatedExpandableListView) rootView.findViewById(R.id.overview_matches_listview);
+        list.setAdapter(adapter);
 
-        listView.setAdapter(adapter);
-        MatchesFragmentClickListener listener = new MatchesFragmentClickListener(matches);
-
-        listView.setOnGroupClickListener(listener);
-        listView.setOnChildClickListener(listener);
+        System.out.println("setup adapter");
 
         return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        new RequestMatchesTask().execute();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -56,41 +61,34 @@ public class MatchesFragment extends CustomFragment {
         return "Matches";
     }
 
-    private List<Match> getMatches() {
-        List<Match> matches = new ArrayList<>();
+    private class RequestMatchesTask extends AsyncTask<Void, Void, List<Match>> {
 
-        final Participant lesley = new User("Lesley", new GlickoRating(1500, 350, 0.06), new Title("Weltmeister"));
-        final Participant oscar = new User("Oscar", new GlickoRating(1500, 350, 0.06), new Title("Weltmeister"));
+        @Override
+        protected List<Match> doInBackground(Void... params) {
+            try {
+                final String url = String.format("%s/matches", Constants.REST_HOST);
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
-        for (int i = 0; i < 10; i++) {
-            matches.add(createRandomMatch(lesley, oscar));
-            matches.add(createRandomMatch(oscar, lesley));
-        }
+                List<Match> matches = Arrays.asList(restTemplate.getForObject(url, Match[].class));
 
-        return matches;
-    }
+                System.out.println(matches);
 
-    private Match createRandomMatch(Participant firstParticipant, Participant secondParticipant) {
-        Match match = new Match(firstParticipant, secondParticipant, MatchType.FRIENDLY);
-
-        int goalsFirstParticipant = 0;
-        int goalsSecondParticipant = 0;
-
-        while (goalsFirstParticipant < 10 && goalsSecondParticipant < 10) {
-            boolean first = random.nextBoolean();
-
-            if (first) {
-                goalsFirstParticipant += 1;
-            } else {
-                goalsSecondParticipant += 1;
+                return matches;
+            } catch (Exception e) {
+                Log.e("MainActivity", e.getMessage(), e);
             }
 
-            Participant participant = first ? firstParticipant : secondParticipant;
-            Date date = new Date();
-
-            match.addGoal(new Goal(participant, date));
+            return null;
         }
 
-        return match;
+        @Override
+        protected void onPostExecute(List<Match> matches) {
+            adapter.addMatches(matches);
+
+            MatchesFragmentClickListener listener = new MatchesFragmentClickListener(matches);
+            list.setOnGroupClickListener(listener);
+        }
     }
+
 }
